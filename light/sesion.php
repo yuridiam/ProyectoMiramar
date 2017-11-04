@@ -10,7 +10,7 @@ $sesion = $conn->query("SELECT * FROM usuarios WHERE correo = '$email' AND pass 
 	if($resultado = mysqli_fetch_array($sesion)){
 		//$_SESSION['us']=$email;
 		if(($resultado["tipo_usuario"] == "Administrador") || ($resultado["tipo_usuario"]=="Empleado")){
-			$nombre = $resultado["nombre"];
+			$nombre = $resultado["nom"];
 			$tipo = $resultado["tipo_usuario"];
 			$_SESSION["nom"]=$nombre;
 			$_SESSION["usu"]=$tipo;

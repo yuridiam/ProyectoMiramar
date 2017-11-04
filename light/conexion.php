@@ -2,7 +2,7 @@
 $servidor = "localhost";
 $usuario = "root";
 $password = "";
-$BD = "abarrotes";
+$BD = "miramar";
 $conn = new mysqli($servidor, $usuario, $password, $BD);
 
 if ($conn->connect_error) {
