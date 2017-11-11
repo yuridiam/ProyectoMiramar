@@ -5,6 +5,8 @@
     header("Location: index.php");
   }
 
+  //isset($_SESSION['insertado']);
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -230,14 +232,14 @@
                             <!-- User Detail box -->
                             <div class="user-details">
                                 <div class="pull-left">
-                                    <?php 
+                                   <?php 
                                         echo "<img src='". $_SESSION["avatar"] . "'". "alt='' class='thumb-md img-circle'>";
                                     ?>
                                 </div>
-                                <div class="user-info">
+                                <div class="user-info" action="sesion.php">
                                     <?php
-                                        echo "<a href='#'>". $_SESSION["nom"] . "</a>";
-                                        echo "<p class='text-muted m-0'>". $_SESSION["usu"] . "</p>";
+                                         echo "<a href='#'>". $_SESSION["nom"] . "</a>";
+                                         echo "<p class='text-muted m-0'>". $_SESSION["usu"] . "</p>";
                                     ?>
                                 </div>
                             </div>
@@ -245,84 +247,96 @@
 
                             <!-- Left Menu Start -->
                             <ul class="metisMenu nav" id="side-menu">
-                                <li><a href="dashboardadmin.php"><i class="ti-home"></i> Dashboard </a></li>
 
-                                <li><a href="nuevaventa.php"><span class="label label-custom pull-right">11</span> <i class="mdi mdi-square-inc-cash"></i> Nueva Venta </a></li>
+                               <li><a href="dashboardadmin.php"><i class="ti-home"></i> Dashboard </a></li>
 
-                                <li>
-                                    <a href="productos.php" aria-expanded="true"><i class="mdi mdi-cube-send"></i> Productos <!--<span class="fa arrow">--></span></a>
-                                    <!--<ul class="nav-second-level nav" aria-expanded="true">
-                                        <li><a href="components-range-slider.html">Range Slider</a></li>
-                                        <li><a href="components-alerts.html">Alerts</a></li>
-                                        <li><a href="components-icons.html">Icons</a></li>
-                                        <li><a href="components-widgets.html">Widgets</a></li>
-                                    </ul>-->
-                                </li>
+                                <?php
 
-                                <!--<li><a href="typography.html"><i class="ti-spray"></i> Typography </a></li>-->
+                                if($_SESSION['usu']=="Administrador"){
 
-                                <li>
-                                    <a href="facturas.php" aria-expanded="true"><i class="fa fa-wpforms"></i>Facturas<!--<span class="fa arrow">--></span></a>
-                                    <!--<ul class="nav-second-level nav" aria-expanded="true">
-                                        <li><a href="forms-general.html">General Elements</a></li>
-                                        <li><a href="forms-advanced.html">Advanced Form</a></li>
-                                    </ul>
-                                </li>-->
-
-                               <!-- <li>
-                                    <a href="javascript: void(0);" aria-expanded="true"><i class="mdi mdi-basket-fill"></i> Stock <!--<span class="fa arrow"></span>--></a>
-                                    <!--<ul class="nav-second-level nav" aria-expanded="true">
-                                        <li><a href="tables-basic.html">Basic tables</a></li>
-                                        <li><a href="tables-advanced.html">Advanced tables</a></li>
-                                    </ul>
-                                </li>-->
-
-                                <!--<li><a href="charts.html"><!--<span class="mdi mdi-content-paste"></span><i class="mdi mdi-content-paste"></i> Reportes </a></li>-->
-
-                                <!--<li><a href="maps.html"><i class="ti-location-pin"></i> Maps </a></li>
-
-                                <li>
-                                    <a href="javascript: void(0);" aria-expanded="true"><i class="mdi mdi-content-paste"></i> Reportes <span class="fa arrow"></span></a>
-                                    <ul class="nav-second-level nav" aria-expanded="true">
-                                        <li><a href="pages-login.html">Login</a></li>
-                                        <li><a href="pages-register.html">Register</a></li>
-                                        <li><a href="pages-forget-password.html">Forget Password</a></li>
-                                        <li><a href="pages-lock-screen.html">Lock-screen</a></li>
-                                        <li><a href="pages-blank.html">Blank page</a></li>
-                                        <li><a href="pages-404.html">Error 404</a></li>
-                                        <li><a href="pages-confirm-mail.html">Confirm Mail</a></li>
-                                        <li><a href="pages-session-expired.html">Session Expired</a></li>
-                                    </ul>
-                                </li>
-
-                                <li>
-                                    <a href="javascript: void(0);" aria-expanded="true"><i class="ti-widget"></i> Extra Pages <span class="fa arrow"></span></a>
-                                    <ul class="nav-second-level nav" aria-expanded="true">
-                                        <li><a href="extras-timeline.html">Timeline</a></li>
-                                        <li><a href="extras-invoice.html">Invoice</a></li>
-                                        <li><a href="extras-profile.html">Profile</a></li>
-                                        <li><a href="extras-calendar.html">Calendar</a></li>
-                                        <li><a href="extras-faqs.html">FAQs</a></li>
-                                        <li><a href="extras-pricing.html">Pricing</a></li>
-                                        <li><a href="extras-contacts.html">Contacts</a></li>
-                                    </ul>
-                                </li>
-
-                                <li>
-                                    <a href="javascript: void(0);" aria-expanded="true"><i class="ti-share"></i> Multi Level <span class="fa arrow"></span></a>
-                                    <ul class="nav-second-level nav" aria-expanded="true">
-                                        <li><a href="javascript: void(0);">Level 1.1</a></li>
-                                        <li><a href="javascript: void(0);" aria-expanded="true">Level 1.2 <span class="fa arrow"></span></a>
-                                            <ul class="nav-third-level nav" aria-expanded="true">
-                                                <li><a href="javascript: void(0);">Level 2.1</a></li>
-                                                <li><a href="javascript: void(0);">Level 2.2</a></li>
+                                    echo('<li><a href="ventas.php"><span class="label label-custom pull-right">11</span> <i class="mdi mdi-square-inc-cash"></i> Ventas </a></li>
+                                    <li>
+                                        <a href="javascript: void(0);" aria-expanded="true"><i class="mdi mdi-cube-send"></i> Productos <span class="fa arrow"></span></a>
+                                            <ul class="nav-second-level nav" aria-expanded="true">
+                                                <li><a href="nuevoempleado.php"><i class="mdi mdi-account-plus"></i> Nuevo Producto</a></li>
+                                                <li><a href="modificarempleado.php"><i class="mdi mdi-account-settings-variant"></i> Modificar Producto</a></li>
+                                                <li><a href="eliminarempleado.php"><i class="mdi mdi-account-minus"></i> Eliminar Producto</a></li>
+                                                <li><a href="verempleados.php"><i class=" mdi mdi-account-search"></i> Visualizar Productos</a></li>
                                             </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </div><!--Scrollbar wrapper-->
+                                    </li>
+
+                                        <li><a href="charts.html"><!--<span class="mdi mdi-content-paste"></span>--><i class="mdi mdi-briefcase-download"></i> Surtir </a></li>
+
+                                        <li>
+                                          <a href="javascript: void(0);" aria-expanded="true"><i class="mdi mdi-image-filter-none"></i> Corte de Caja <!--<span class="fa arrow">--></span></a>
+                                          <!--<ul class="nav-second-level nav" aria-expanded="true">
+                                            <li><a href="forms-general.html">General Elements</a></li>
+                                            <li><a href="forms-advanced.html">Advanced Form</a></li>
+                                          </ul>-->
+                                         </li>
+      
+
+                                      <li><a href="charts.html"><!--<span class="mdi mdi-content-paste"></span>--><i class="mdi mdi-content-paste"></i> Reportes </a></li>
+
+                                      <li>
+                                        <a href="javascript: void(0);" aria-expanded="true"><i class="mdi mdi-account-card-details"></i> Proveedores <span class="fa arrow"></span></a>
+                                            <ul class="nav-second-level nav" aria-expanded="true">
+                                                <li><a href="nuevoempleado.php"><i class="mdi mdi-account-plus"></i> Nuevo Proveedor</a></li>
+                                                <li><a href="modificarempleado.php"><i class="mdi mdi-account-settings-variant"></i> Modificar Proveedor</a></li>
+                                                <li><a href="eliminarempleado.php"><i class="mdi mdi-account-minus"></i> Eliminar Proveedor</a></li>
+                                                <li><a href="verempleados.php"><i class=" mdi mdi-account-search"></i> Visualizar Proveedores</a></li>
+                                            </ul>
+                                    </li>
+
+                                    <li>
+                                        <a href="javascript: void(0);" aria-expanded="true"><i class="mdi mdi-account-multiple"></i> Gestión de Usuarios <span class="fa arrow"></span></a>
+                                            <ul class="nav-second-level nav" aria-expanded="true">
+                                                <li><a href="javascript: void(0);" aria-expanded="true"><i class="mdi mdi-account-star"></i> Empleados<span class="fa arrow"></span></a>
+                                                    <ul class="nav-third-level nav" aria-expanded="true">
+                                                        <li><a href="nuevoempleado.php"><i class="mdi mdi-account-plus"></i> Nuevo Empleado</a></li>
+                                                        <li><a href="modificarempleado.php"><i class="mdi mdi-account-settings-variant"></i> Modificar Empleado</a></li>
+                                                        <li><a href="eliminarempleado.php"><i class="mdi mdi-account-minus"></i> Eliminar Empleado</a></li>
+                                                        <li><a href="verempleados.php"><i class=" mdi mdi-account-search"></i> Visualizar Empleados</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                            <ul class="nav-second-level nav" aria-expanded="true">
+                                                <li><a href="javascript: void(0);" aria-expanded="true"><i class="mdi mdi-account-settings"></i> Administradores<span class="fa arrow"></span></a>
+                                                    <ul class="nav-third-level nav" aria-expanded="true">
+                                                        <li><a href="nuevoadmin.php"><i class="mdi mdi-account-plus"></i> Nuevo Administrador</a></li>
+                                                        <li><a href="modificaradmin.php"><i class="mdi mdi-account-settings-variant"></i> Modificar Administrador</a></li>
+                                                        <li><a href="eliminaradmin.php"><i class="mdi mdi-account-minus"></i> Eliminar Administrador</a></li>
+                                                        <li><a href="veradmin.php"><i class=" mdi mdi-account-search"></i> Visualizar Administradores</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                    </li>');                                    
+                                  }
+                                ?>
+
+                                <?php
+                                if($_SESSION['usu']=="Empleado"){
+
+                                      echo('<li><a href="nuevaventa.php"><span class="label label-custom pull-right">1</span> <i class="mdi mdi-square-inc-cash"></i> Nueva Venta </a></li>
+
+                                    <li>
+                                        <a href="javascript: void(0);" aria-expanded="true"><i class="mdi mdi-cube-send"></i> Productos <!--<span class="fa arrow">--></span></a>
+                                        <!--<ul class="nav-second-level nav" aria-expanded="true">
+                                            <li><a href="components-range-slider.html">Range Slider</a></li>
+                                            <li><a href="components-alerts.html">Alerts</a></li>
+                                            <li><a href="components-icons.html">Icons</a></li>
+                                            <li><a href="components-widgets.html">Widgets</a></li>
+                                        </ul>-->
+                                    </li>
+                                    <li>
+                                        <a href="javascript: void(0);" aria-expanded="true"><i class="fa fa-wpforms"></i>Facturas<!--<span class="fa arrow">--></span></a>
+                                        <!--<ul class="nav-second-level nav" aria-expanded="true">
+                                            <li><a href="forms-general.html">General Elements</a></li>
+                                            <li><a href="forms-advanced.html">Advanced Form</a></li>
+                                        </ul>-->
+                                    </li>'); 
+                                }
+                                ?>
                 </aside>
                 <!--left navigation end-->
 
@@ -334,13 +348,72 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="">
-                                    <h4 class="header-title">Nueva Venta</h4>
+                                    <h4 class="header-title">Eliminar Empleado</h4>
 
                                     <p class="text-muted font-13 m-b-10">
                                         
                                     </p>
+                                   
+                                                        <div class="p-20 m-b-20">
+                                                            <form class="form-validation" method="post" enctype="multipart/form-data">
+                                                                <div class="form-group">
+                                                                  <label for "usuarios">Seleccione al usuario <span class="text-danger">*</span></label><br>
+                                                                    <select id="getUsuarios" class="form-control select2" data-placeholder="Busque el producto que desea añadir" name="usuarios" style="width:400px" required>
+                                                                        <?php
 
-                                    <div class="p-20 m-b-20">
+                                                                            include("conexion.php");
+
+                                                                            $sesion = $conn->query("SELECT * FROM usuarios WHERE tipo_usuario ='Empleado' AND eliminado = 0");
+
+                                                                            while($resultado = mysqli_fetch_array($sesion)){
+                                                                        ?>
+                                                                                <option><?php echo "$resultado[nom]"; ?></option>
+                                                                                <?php
+                                                                            }
+
+                                                                        ?>
+                                                                    </select>
+
+                                                                    <input class="btn btn-info waves-effect waves-light" name="buscar" type="submit" value="Eliminar"/>
+                                                                </div>
+                                                            </form>
+                                                                <?php
+                                                                    if(isset($_POST['buscar'])){
+                                                                    	include("conexion.php");
+                                                                      	$selected = $_POST['usuarios'];
+                                                                      	$sesion = $conn->query("UPDATE usuarios SET eliminado = 1 WHERE nom = '$selected'");
+                                                                    }
+                                                                    
+                                                                ?>  
+                                                                <?php
+                                                                        if($sesion){
+                                                                            $_SESSION['eliminado']=1;
+                                                                        }else{
+                                                                            $_SESSION['eliminado']=0;
+                                                                        }
+                                                                    
+                                                                ?>
+                                                                <?php
+                                                                    if(isset($_SESSION['eliminado'])){
+                                                                        if($_SESSION['eliminado']==1){
+                                                                            echo "<div class='alert alert-info alert-white alert-dismissible fade in' role='alert'>
+                                                                            <button type='button' class='close' data-dismiss='alert'
+                                                        aria-label='Close'>
+                                                                            <span aria-hidden='true'>&times;</span>
+                                                                            </button>
+                                                                            <i class='mdi mdi-check-all'></i>
+                                                                            <strong>¡Listo!</strong> Empleado eliminado satisfactoriamente.
+                                                                            </div>";
+                                                                        }
+                                                                        $_SESSION['eliminado']=0;
+                                                                    }
+                                                                ?>
+                                                                   
+                                                            </form>
+                                                        </div>
+                                                    </div>
+
+                                    <!--<div class="p-20 m-b-20">
                                         <form action="#" class="form-validation">
                                         <div class="col-sm-12">
                                             <div class="col-sm-5">
@@ -357,7 +430,7 @@
                                                     <div class="input-group">
                                                         <label for="fechayhora">Fecha y hora<span class="text-danger">*</span></label>
                                                         <input type="text" name="noventa" parsley-trigger="change" disabled = "" class="form-control" id="noventa">
-                                                    </div><!-- input-group -->
+                                                    </div><!-- input-group 
                                                 </div>
                                             </div>
                                         </div>
@@ -365,7 +438,7 @@
                                         <br>
                                             <div class="col-sm-10">
                                                 <div class="form-group">
-<!--                                                    <label>Añadir producto<span class="text-danger"></span></label>-->
+<!--                                                    <label>Añadir producto<span class="text-danger"></span></label>
                                                     <select class="form-control select2" data-placeholder="Busque el producto que desea añadir">
                                                         <option></option>
                                                             <optgroup label="Alaskan/Hawaiian Time Zone">
@@ -434,7 +507,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </form>
+                                    </form>-->
                                 </div>
                             </div>
                         </div>
@@ -442,7 +515,7 @@
                 
                     <!-- end container -->
 
-                    <div class="footer">
+                    <!--<div class="footer">
                         <div class="pull-right hidden-xs">
                             Project Completed <strong class="text-custom">39%</strong>.
                         </div>

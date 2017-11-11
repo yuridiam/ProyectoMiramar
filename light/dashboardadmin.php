@@ -42,7 +42,7 @@
                 <!-- LOGO -->
                 <div class="topbar-left">
                     <div class="">
-                        <a href="dashboardadmin.html" class="logo">
+                        <a href="dashboardadmin.php" class="logo">
                             <img src="assets/images/logo2.png" style="width:190px; height:70px" alt="logo" class="logo-lg" />
                             <img src="assets/images/logo_sm.png" alt="logo" class="logo-sm hidden" />
                         </a>
@@ -185,13 +185,15 @@
                                 </li>
 
                                 <li class="dropdown top-menu-item-xs">
-                                    <a href="" class="dropdown-toggle menu-right-item profile" data-toggle="dropdown" aria-expanded="true"><img src="assets/images/users/avatar-1.jpg" alt="user-img" class="img-circle"> </a>
+                                    <a href="" class="dropdown-toggle menu-right-item profile" data-toggle="dropdown" aria-expanded="true"><?php 
+                                        echo "<img src='". $_SESSION["avatar"] . "'". "alt='' class='thumb-md img-circle'>";
+                                    ?></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="javascript:void(0)"><i class="ti-user m-r-10"></i> Perfil</a></li>
-                                        <li><a href="javascript:void(0)"><i class="ti-settings m-r-10"></i> Ajustes</a></li>
+                                        <li><a href="javascript:void(0)"><i class="ti-user m-r-10"></i> Perfil </a></li>
+                                        <li><a href="javascript:void(0)"><i class="ti-settings m-r-10"></i> Ajustes </a></li>
                                         <!--<li><a href="javascript:void(0)"><i class="ti-lock m-r-10"></i> Lock screen</a></li>-->
                                         <li class="divider"></li>
-                                        <li><a href="cerrar_sesion.php"><i class="ti-power-off m-r-10"></i> Salir</a></li>
+                                        <li><a href="cerrar_sesion.php"><i class="ti-power-off m-r-10"></i> Salir </a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -215,7 +217,9 @@
                             <!-- User Detail box -->
                             <div class="user-details">
                                 <div class="pull-left">
-                                    <img src="assets/images/users/avatar-1.jpg" alt="" class="thumb-md img-circle">
+                                    <?php 
+                                        echo "<img src='". $_SESSION["avatar"] . "'". "alt='' class='thumb-md img-circle'>";
+                                    ?>
                                 </div>
                                 <div class="user-info" action="sesion.php">
                                 <?php
@@ -234,19 +238,21 @@
 
                                 if($_SESSION['usu']=="Administrador"){
 
-                                    echo('<li><a href="ui-elements.html"><span class="label label-custom pull-right">11</span> <i class="mdi mdi-square-inc-cash"></i> Ventas </a></li>
-                                        <li>
-                                            <a href="javascript: void(0);" aria-expanded="true"><i class="mdi mdi-cube-send"></i> Productos <!--<span class="fa arrow">--></span></a>
-                                            <!--<ul class="nav-second-level nav" aria-expanded="true">
-                                                <li><a href="components-range-slider.html">Range Slider</a></li>
-                                                <li><a href="components-alerts.html">Alerts</a></li>
-                                                <li><a href="components-icons.html">Icons</a></li>
-                                                <li><a href="components-widgets.html">Widgets</a></li>
-                                            </ul>-->
-                                        </li>
+                                    echo('<li><a href="ventas.php"><span class="label label-custom pull-right">11</span> <i class="mdi mdi-square-inc-cash"></i> Ventas </a></li>
+                                    <li>
+                                        <a href="javascript: void(0);" aria-expanded="true"><i class="mdi mdi-cube-send"></i> Productos <span class="fa arrow"></span></a>
+                                            <ul class="nav-second-level nav" aria-expanded="true">
+                                                <li><a href="nuevoproducto.php"><i class="mdi mdi-account-plus"></i> Nuevo Producto</a></li>
+                                                <li><a href="modificarproducto.php"><i class="mdi mdi-account-settings-variant"></i> Modificar Producto</a></li>
+                                                <li><a href="eliminarproducto.php"><i class="mdi mdi-account-minus"></i> Eliminar Producto</a></li>
+                                                <li><a href="verproductos.php"><i class=" mdi mdi-account-search"></i> Visualizar Productos</a></li>
+                                            </ul>
+                                    </li>
+
+                                        <li><a href="surtir.php"><!--<span class="mdi mdi-content-paste"></span>--><i class="mdi mdi-briefcase-download"></i> Surtir </a></li>
 
                                         <li>
-                                          <a href="javascript: void(0);" aria-expanded="true"><i class="mdi mdi-image-filter-none"></i> Corte de Caja <!--<span class="fa arrow">--></span></a>
+                                          <a href="cortedecaja.php" aria-expanded="true"><i class="mdi mdi-image-filter-none"></i> Corte de Caja <!--<span class="fa arrow">--></span></a>
                                           <!--<ul class="nav-second-level nav" aria-expanded="true">
                                             <li><a href="forms-general.html">General Elements</a></li>
                                             <li><a href="forms-advanced.html">Advanced Form</a></li>
@@ -254,17 +260,41 @@
                                          </li>
       
 
-                                      <li><a href="charts.html"><!--<span class="mdi mdi-content-paste"></span>--><i class="mdi mdi-content-paste"></i> Reportes </a></li>
+                                      <li><a href="reportes.php"><!--<span class="mdi mdi-content-paste"></span>--><i class="mdi mdi-content-paste"></i> Reportes </a></li>
 
-                                          <li>
-                                            <a href="javascript: void(0);" aria-expanded="true"><i class="mdi mdi-account-multiple"></i> Empleados <!--<span class="fa arrow">--></span></a>
-                                            <!--<ul class="nav-second-level nav" aria-expanded="true">
-                                                <li><a href="components-range-slider.html">Range Slider</a></li>
-                                                <li><a href="components-alerts.html">Alerts</a></li>
-                                                <li><a href="components-icons.html">Icons</a></li>
-                                                <li><a href="components-widgets.html">Widgets</a></li>
-                                            </ul>-->
-                                        </li>');                                    
+                                      <li>
+                                        <a href="javascript: void(0);" aria-expanded="true"><i class="mdi mdi-account-card-details"></i> Proveedores <span class="fa arrow"></span></a>
+                                            <ul class="nav-second-level nav" aria-expanded="true">
+                                                <li><a href="nuevoproveedor.php"><i class="mdi mdi-account-plus"></i> Nuevo Proveedor</a></li>
+                                                <li><a href="modificarproveedor.php"><i class="mdi mdi-account-settings-variant"></i> Modificar Proveedor</a></li>
+                                                <li><a href="eliminarproveedor.php"><i class="mdi mdi-account-minus"></i> Eliminar Proveedor</a></li>
+                                                <li><a href="verproveedores.php"><i class=" mdi mdi-account-search"></i> Visualizar Proveedores</a></li>
+                                            </ul>
+                                    </li>
+
+                                    <li>
+                                        <a href="javascript: void(0);" aria-expanded="true"><i class="mdi mdi-account-multiple"></i> Gestión de Usuarios <span class="fa arrow"></span></a>
+                                            <ul class="nav-second-level nav" aria-expanded="true">
+                                                <li><a href="javascript: void(0);" aria-expanded="true"><i class="mdi mdi-account-star"></i> Empleados<span class="fa arrow"></span></a>
+                                                    <ul class="nav-third-level nav" aria-expanded="true">
+                                                        <li><a href="nuevoempleado.php"><i class="mdi mdi-account-plus"></i> Nuevo Empleado</a></li>
+                                                        <li><a href="modificarempleado.php"><i class="mdi mdi-account-settings-variant"></i> Modificar Empleado</a></li>
+                                                        <li><a href="eliminarempleado.php"><i class="mdi mdi-account-minus"></i> Eliminar Empleado</a></li>
+                                                        <li><a href="verempleados.php"><i class=" mdi mdi-account-search"></i> Visualizar Empleados</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                            <ul class="nav-second-level nav" aria-expanded="true">
+                                                <li><a href="javascript: void(0);" aria-expanded="true"><i class="mdi mdi-account-settings"></i> Administradores<span class="fa arrow"></span></a>
+                                                    <ul class="nav-third-level nav" aria-expanded="true">
+                                                        <li><a href="nuevoadmin.php"><i class="mdi mdi-account-plus"></i> Nuevo Administrador</a></li>
+                                                        <li><a href="modificaradmin.php"><i class="mdi mdi-account-settings-variant"></i> Modificar Administrador</a></li>
+                                                        <li><a href="eliminaradmin.php"><i class="mdi mdi-account-minus"></i> Eliminar Administrador</a></li>
+                                                        <li><a href="veradmin.php"><i class=" mdi mdi-account-search"></i> Visualizar Administradores</a></li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                    </li>');                                    
                                   }
                                 ?>
 
