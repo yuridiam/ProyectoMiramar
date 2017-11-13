@@ -258,17 +258,17 @@
                                     <li>
                                         <a href="javascript: void(0);" aria-expanded="true"><i class="mdi mdi-cube-send"></i> Productos <span class="fa arrow"></span></a>
                                             <ul class="nav-second-level nav" aria-expanded="true">
-                                                <li><a href="nuevoempleado.php"><i class="mdi mdi-account-plus"></i> Nuevo Producto</a></li>
-                                                <li><a href="modificarempleado.php"><i class="mdi mdi-account-settings-variant"></i> Modificar Producto</a></li>
-                                                <li><a href="eliminarempleado.php"><i class="mdi mdi-account-minus"></i> Eliminar Producto</a></li>
-                                                <li><a href="verempleados.php"><i class=" mdi mdi-account-search"></i> Visualizar Productos</a></li>
+                                                <li><a href="nuevoproducto.php"><i class="mdi mdi-account-plus"></i> Nuevo Producto</a></li>
+                                                <li><a href="modificarproducto.php"><i class="mdi mdi-account-settings-variant"></i> Modificar Producto</a></li>
+                                                <li><a href="eliminarproducto.php"><i class="mdi mdi-account-minus"></i> Eliminar Producto</a></li>
+                                                <li><a href="verproductos.php"><i class=" mdi mdi-account-search"></i> Visualizar Productos</a></li>
                                             </ul>
                                     </li>
 
-                                        <li><a href="charts.html"><!--<span class="mdi mdi-content-paste"></span>--><i class="mdi mdi-briefcase-download"></i> Surtir </a></li>
+                                        <li><a href="surtir.php"><!--<span class="mdi mdi-content-paste"></span>--><i class="mdi mdi-briefcase-download"></i> Surtir </a></li>
 
                                         <li>
-                                          <a href="javascript: void(0);" aria-expanded="true"><i class="mdi mdi-image-filter-none"></i> Corte de Caja <!--<span class="fa arrow">--></span></a>
+                                          <a href="cortedecaja.php" aria-expanded="true"><i class="mdi mdi-image-filter-none"></i> Corte de Caja <!--<span class="fa arrow">--></span></a>
                                           <!--<ul class="nav-second-level nav" aria-expanded="true">
                                             <li><a href="forms-general.html">General Elements</a></li>
                                             <li><a href="forms-advanced.html">Advanced Form</a></li>
@@ -276,15 +276,15 @@
                                          </li>
       
 
-                                      <li><a href="charts.html"><!--<span class="mdi mdi-content-paste"></span>--><i class="mdi mdi-content-paste"></i> Reportes </a></li>
+                                      <li><a href="reportes.php"><!--<span class="mdi mdi-content-paste"></span>--><i class="mdi mdi-content-paste"></i> Reportes </a></li>
 
                                       <li>
                                         <a href="javascript: void(0);" aria-expanded="true"><i class="mdi mdi-account-card-details"></i> Proveedores <span class="fa arrow"></span></a>
                                             <ul class="nav-second-level nav" aria-expanded="true">
-                                                <li><a href="nuevoempleado.php"><i class="mdi mdi-account-plus"></i> Nuevo Proveedor</a></li>
-                                                <li><a href="modificarempleado.php"><i class="mdi mdi-account-settings-variant"></i> Modificar Proveedor</a></li>
-                                                <li><a href="eliminarempleado.php"><i class="mdi mdi-account-minus"></i> Eliminar Proveedor</a></li>
-                                                <li><a href="verempleados.php"><i class=" mdi mdi-account-search"></i> Visualizar Proveedores</a></li>
+                                                <li><a href="nuevoproveedor.php"><i class="mdi mdi-account-plus"></i> Nuevo Proveedor</a></li>
+                                                <li><a href="modificarproveedor.php"><i class="mdi mdi-account-settings-variant"></i> Modificar Proveedor</a></li>
+                                                <li><a href="eliminarproveedor.php"><i class="mdi mdi-account-minus"></i> Eliminar Proveedor</a></li>
+                                                <li><a href="verproveedores.php"><i class=" mdi mdi-account-search"></i> Visualizar Proveedores</a></li>
                                             </ul>
                                     </li>
 
@@ -356,6 +356,21 @@
                                    
                                                         <div class="p-20 m-b-20">
                                                             <form class="form-validation" method="post" enctype="multipart/form-data">
+                                                            <?php
+                                                                    if(isset($_SESSION['eliminado'])){
+                                                                        if($_SESSION['eliminado']==1){
+                                                                            echo "<div class='alert alert-info alert-white alert-dismissible fade in' role='alert'>
+                                                                            <button type='button' class='close' data-dismiss='alert'
+                                                        aria-label='Close'>
+                                                                            <span aria-hidden='true'>&times;</span>
+                                                                            </button>
+                                                                            <i class='mdi mdi-check-all'></i>
+                                                                            <strong>¡Listo!</strong> Empleado eliminado satisfactoriamente.
+                                                                            </div>";
+                                                                        }
+                                                                    }
+                                                                    $_SESSION['eliminado']=0;
+                                                            ?>
                                                                 <div class="form-group">
                                                                   <label for "usuarios">Seleccione al usuario <span class="text-danger">*</span></label><br>
                                                                     <select id="getUsuarios" class="form-control select2" data-placeholder="Busque el producto que desea añadir" name="usuarios" style="width:400px" required>
@@ -392,23 +407,7 @@
                                                                             $_SESSION['eliminado']=0;
                                                                         }
                                                                     
-                                                                ?>
-                                                                <?php
-                                                                    if(isset($_SESSION['eliminado'])){
-                                                                        if($_SESSION['eliminado']==1){
-                                                                            echo "<div class='alert alert-info alert-white alert-dismissible fade in' role='alert'>
-                                                                            <button type='button' class='close' data-dismiss='alert'
-                                                        aria-label='Close'>
-                                                                            <span aria-hidden='true'>&times;</span>
-                                                                            </button>
-                                                                            <i class='mdi mdi-check-all'></i>
-                                                                            <strong>¡Listo!</strong> Empleado eliminado satisfactoriamente.
-                                                                            </div>";
-                                                                        }
-                                                                        $_SESSION['eliminado']=0;
-                                                                    }
-                                                                ?>
-                                                                   
+                                                                ?> 
                                                             </form>
                                                         </div>
                                                     </div>

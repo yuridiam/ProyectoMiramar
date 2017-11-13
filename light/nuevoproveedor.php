@@ -13,7 +13,7 @@
         $direccion = $_POST['dir'];
         $telefono = $_POST['telefono'];
         $eliminado = '0';
-        $_SESSION["insertado"]=0;
+        $_SESSION["insertadoPR"]=0;
 
 
         include("conexion.php");
@@ -21,18 +21,18 @@
         $sesion2 = $conn->query("SELECT * FROM proveedores WHERE nom = '$nombre'");
 
             if(mysqli_num_rows($sesion2)>0){
-                $_SESSION['insertado']=2;
+                $_SESSION['insertadoPR']=2;
                 header("Location: nuevoproveedor.php");
             }else{
 
                 $sesion = $conn->query("INSERT INTO proveedores (nombre, eliminado, direccion, telefono) VALUES ('$nombre', '$eliminado', '$direccion', '$telefono')");
 
-                $_SESSION['insertado']=1;
+                $_SESSION['insertadoPR']=1;
                 header("Location: nuevoproveedor.php");
             }
 
         if(empty($nombre)){
-                $_SESSION['insertado']=0;
+                $_SESSION['insertadoPR']=0;
                 header("Location: nuevoproveedor.php");
         }
   }
@@ -295,7 +295,7 @@
                                             </ul>
                                     </li>
 
-                                        <li><a href="surtir.html"><!--<span class="mdi mdi-content-paste"></span>--><i class="mdi mdi-briefcase-download"></i> Surtir </a></li>
+                                        <li><a href="surtir.php"><!--<span class="mdi mdi-content-paste"></span>--><i class="mdi mdi-briefcase-download"></i> Surtir </a></li>
 
                                         <li>
                                           <a href="cortedecaja.php" aria-expanded="true"><i class="mdi mdi-image-filter-none"></i> Corte de Caja <!--<span class="fa arrow">--></span></a>
@@ -386,8 +386,8 @@
                                     <div class="p-20 m-b-20">
 					                             <form class="form-validation" method="post" enctype="multipart/form-data">
 					                                         <?php
-					                                             if(isset($_SESSION['insertado'])){
-					                                        		     if($_SESSION['insertado']==1){
+					                                             if(isset($_SESSION['insertadoPR'])){
+					                                        		     if($_SESSION['insertadoPR']==1){
 					                                            		   echo "<div class='alert alert-info alert-white alert-dismissible fade in' role='alert'>
                                                 						  	<button type='button' class='close' data-dismiss='alert'
                                                         aria-label='Close'>
@@ -396,7 +396,7 @@
                                                 							 <i class='mdi mdi-check-all'></i>
                                                 							 <strong>¡Listo!</strong> Proveedor registrado satisfactoriamente.
                                             								  </div>";
-					                                            	    }else if($_SESSION['insertado']==2){
+					                                            	    }else if($_SESSION['insertadoPR']==2){
 					                                            		     echo "<div class='alert alert-danger alert-white alert-dismissible fade in' role='alert'>
                                                 							<button type='button' class='close' data-dismiss='alert'
                                                         aria-label='Close'>

@@ -7,6 +7,90 @@
 
   //isset($_SESSION['insertado']);
 
+  if(isset($_POST["entrar"])){
+      session_start();
+
+        $target_dir = "assets/images/users/";
+        $target_file = $target_dir . basename($_FILES["foto"]["name"]);
+        $uploadOk = 1;
+        $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+        // Check if image file is a actual image or fake image
+        if(isset($_POST["entrar"])) {
+            $check = getimagesize($_FILES["foto"]["tmp_name"]);
+            if($check !== false) {
+                echo "File is an image - " . $check["mime"] . ".";
+                $uploadOk = 1;
+            } else {
+                echo "File is not an image.";
+                $uploadOk = 0;
+            }
+        }
+        // Check if file already exists
+        if (file_exists($target_file)) {
+            echo "Sorry, file already exists.";
+            $uploadOk = 0;
+        }
+        // Check file size
+        if ($_FILES["foto"]["size"] > 500000000) {
+            echo "Sorry, your file is too large.";
+            $uploadOk = 0;
+        }
+        // Allow certain file formats
+        if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+        && $imageFileType != "gif" ) {
+            echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
+            $uploadOk = 0;
+        }
+        // Check if $uploadOk is set to 0 by an error
+        if ($uploadOk == 0) {
+            echo "Sorry, your file was not uploaded.";
+        // if everything is ok, try to upload file
+        } else {
+            if (move_uploaded_file($_FILES["foto"]["tmp_name"], $target_file)) {
+                $dir=$target_file;
+                echo "The file ". basename( $_FILES["foto"]["name"]). " has been uploaded.";
+            } else {
+                echo "Sorry, there was an error uploading your file.";
+            }
+        }
+
+        $nombre = $_POST['nombre'];
+        $edad = $_POST['edad'];
+        $direccion = $_POST['dir'];
+        $telefono = $_POST['telefono'];
+        $correo = $_POST['correo'];
+        $password = $_POST['password'];
+        $password2 = $_POST['password2'];
+        $tipo_usuario = 'Administrador';
+        $eliminado = '0';
+        $foto = $dir;
+        $nickname = $_POST['nick'];
+        $estado = $_POST['estado'];
+        $ubicacion = $_POST['ubicacion'];
+        $bio = $_POST['bio'];
+        $_SESSION["insertadoA"]=0;
+
+
+        include("conexion.php");
+        $sesion2 = $conn->query("SELECT * FROM usuarios WHERE nom = '$nombre'");
+
+            if(mysqli_num_rows($sesion2)>0){
+                $_SESSION['insertadoA']=2;
+                header("Location: nuevoempleado.php");
+            }else{
+
+                $sesion = $conn->query("INSERT INTO usuarios (nom, correo, pass, tipo_usuario, eliminado, edad, direccion, telefono, foto, nickname, estado, ubicacion, biografia) VALUES ('$nombre', '$correo', '$password2', '$tipo_usuario', '$eliminado', '$edad', '$direccion', '$telefono', '$foto', '$nickname', '$estado', '$ubicacion', '$bio')");
+
+                $_SESSION['insertadoA']=1;
+                header("Location: nuevoempleado.php");
+            }
+
+        if(empty($nombre)){
+                $_SESSION['insertadoA']=0;
+                header("Location: nuevoempleado.php");
+        }
+  }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -348,16 +432,16 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="">
-                                    <h4 class="header-title">Modificar Empleado</h4>
+                                    <h4 class="header-title">Nuevo Administrador</h4>
 
                                     <p class="text-muted font-13 m-b-10">
                                         
                                     </p>
-                                    <!--<div class="p-20 m-b-20">
+                                    <div class="p-20 m-b-20">
 					                             <form class="form-validation" method="post" enctype="multipart/form-data">
 					                                         <?php
-					                                             /*if(isset($_SESSION['insertado'])){
-					                                        		     if($_SESSION['insertado']==1){
+					                                             if(isset($_SESSION['insertadoA'])){
+					                                        		     if($_SESSION['insertadoA']==1){
 					                                            		   echo "<div class='alert alert-info alert-white alert-dismissible fade in' role='alert'>
                                                 						  	<button type='button' class='close' data-dismiss='alert'
                                                         aria-label='Close'>
@@ -366,7 +450,7 @@
                                                 							 <i class='mdi mdi-check-all'></i>
                                                 							 <strong>¡Listo!</strong> Empleado registrado satisfactoriamente.
                                             								  </div>";
-					                                            	    }else if($_SESSION['insertado']==2){
+					                                            	    }else if($_SESSION['insertadoA']==2){
 					                                            		     echo "<div class='alert alert-danger alert-white alert-dismissible fade in' role='alert'>
                                                 							<button type='button' class='close' data-dismiss='alert'
                                                         aria-label='Close'>
@@ -376,9 +460,9 @@
                                                 							<strong>¡Error!</strong> El empleado que está tratando de registrar ya existe.
                                             								  </div>";
 					                                            	    }
-					                                            	$_SESSION['insertado']=0;
+					                                            	//$_SESSION['insertadoA']=0;
 					                                            }
-					                            			      */?> 
+					                            			      ?> 
 					                                            <div class="form-group">
 					                                                <label for="userName">Nombre<span class="text-danger">*</span></label>
 					                                                <input type="text" name="nombre" parsley-trigger="change" required
@@ -418,13 +502,30 @@
 					                                                <input data-parsley-equalto="#password" type="text" required
 					                                                       placeholder="Ingrese nuevamente la contraseña" name="password2" class="form-control" id="password2" maxlength="10">
 					                                            </div>
+                                                      <div class="form-group">
+                                                          <label for="nick">Nombre de usuario <span class="text-danger">*</span></label>
+                                                          <input type="text" required placeholder="Ingrese un nombre de usuario" name="nick" class="form-control" id="nick" maxlength="15">
+                                                      </div>
+                                                       <div class="form-group">
+                                                          <label for="estado">Estado <span class="text-danger">*</span></label>
+                                                          <input type="text" placeholder="Ingrese un estado para su perfil" name="estado" class="form-control" id="estado" maxlength="150">
+                                                      </div>
+                                                      <div class="form-group">
+                                                          <label for="ubicacion">Ubicacion <span class="text-danger">*</span></label>
+                                                          <input type="text" placeholder="Ingrese su ubicacion actual" name="ubicacion" class="form-control" id="ubicacion" maxlength="30">
+                                                      </div>
+                                                      <div class="form-group">
+                                                          <label for="bio">Biografía <span class="text-danger">*</span></label>
+                                                          <input type="text" placeholder="Llene su biografía" name="bio" class="form-control" id="bio" maxlength="400">
+                                                      </div>
+
 					                                            <div class="form-group text-right m-b-0">
 					                                            	<input class="btn btn-info waves-effect waves-light" name="entrar" type="submit" value="Registrar"/>
 					                                            </div>
 					                                        </form>
 					                                    </div>
                                           
-                                                    <!--<div class="tab-pane" id="modificarempleado">-->
+                                                    <!--<div class="tab-pane" id="modificarempleado">
                                                         <div class="p-20 m-b-20">
                                                             <form class="form-validation" method="post" enctype="multipart/form-data">
                                                                 <div class="form-group">
@@ -432,7 +533,7 @@
                                                                     <select id="getUsuarios" class="form-control select2" data-placeholder="Busque el producto que desea añadir" name="usuarios" style="width:400px" required>
                                                                         <?php
 
-                                                                            include("conexion.php");
+                                                                            /*include("conexion.php");
 
                                                                             $sesion = $conn->query("SELECT * FROM usuarios WHERE tipo_usuario ='Empleado' AND eliminado = 0");
 
@@ -444,25 +545,17 @@
 
                                                                         ?>
                                                                     </select>
-
                                                                     <input class="btn btn-info waves-effect waves-light" name="buscar" type="submit" value="Buscar"/>
                                                                 </div>
-                                                            </form>
                                                                 <?php
-                                                                    if(isset($_POST['buscar'])){
-                                                                    	include("conexion.php");
-                                                                      	$selected = $_POST['usuarios'];
-                                                                      	$sesion = $conn->query("SELECT * FROM usuarios WHERE nom = '$selected'");
 
-                                                                      //$resultado = mysqli_fetch_array($sesion);
+                                                                    if(isset($_POST["buscar"])){
+                                                                      $selected = $_POST["usuarios"];
+                                                                      $sesion = $conn->query("SELECT * FROM usuarios WHERE nom ='$selected'");
+                                                                      $resultado = mysqli_fetch_array($sesion);
 
 //                                                                        if($resultado = mysqli_fetch_array($sesion)){
-																		if(mysqli_num_rows($sesion)>0){
-																			$resultado = mysqli_fetch_array($sesion);
-                                                                            $_SESSION['n'] = $resultado['nom'];
-
                                                                             echo "
-                                                                            <form class='form-validation' method='post' enctype='multipart/form-data'>
                                                                             <div class='form-group'>
                                                                                 <label for='userName'>Nombre<span class='text-danger'>*</span></label>
                                                                                 <input type='text' name='nombre' parsley-trigger='change' required
@@ -473,7 +566,7 @@
                                                                                 <br><img src= '$resultado[foto]' alt='' class='thumb-md img-circle' style='width:100px'><br><br>
 
                                                                                 <label class='control-label'>Seleccione una foto<span class='text-danger'>*</span></label>
-                                                                                <input type='file' name='foto' class='filestyle' data-buttonname='btn-default'>
+                                                                                <input type='file' name='foto' required class='filestyle' data-buttonname='btn-default'>
                                                                             </div>
                                                 
                                                                             <div class='form-group'>
@@ -505,123 +598,29 @@
                                                                                 <input data-parsley-equalto='#password' type='text' required
                                                                                placeholder='Ingrese nuevamente la contraseña' name='password2' class='form-control' id='password2' maxlength='10' value='$resultado[pass]'>
                                                                             </div>
-                                                                            <div class='form-group'>
-                                                                                <label for='nick'>Nombre de usuario <span class='text-danger'>*</span></label>
-                                                                                <input type='text' required placeholder='Ingrese un nombre de usuario' name='nick' class='form-control' id='nick' maxlength='15' value='$resultado[nickname]'>
-                                                                            </div>
-                                                                            <div class='form-group'>
-                                                                                <label for='estado'>Estado <span class='text-danger'>*</span></label>
-                                                                                <input type='text' placeholder='Ingrese un estado para su perfil' name='estado' class='form-control' id='estado' maxlength='150' value='$resultado[estado]'>
-                                                                            </div>
-                                                                            <div class='form-group'>
-                                                                                <label for='ubicacion'>Ubicacion <span class='text-danger'>*</span></label>
-                                                                                <input type='text' placeholder='Ingrese su ubicacion actual' name='ubicacion' class='form-control' id='ubicacion' maxlength='30' value='$resultado[ubicacion]'>
-                                                                            </div>
-                                                                            <div class='form-group'>
-                                                                                <label for='bio'>Biografía <span class='text-danger'>*</span></label>
-                                                                                <input type='text' placeholder='Llene su biografía' name='bio' class='form-control' id='bio' maxlength='400' value='$resultado[biografia]'>
-                                                                            </div>
                                                                             <div class='form-group text-right m-b-0'>
                                                                                 <input class='btn btn-info waves-effect waves-light' name='modi' type='submit' value='Modificar'/>
-                                                                            </div>
-                                                                            </form>";
-
+                                                                            </div>";
                                                                         }
-                                                                    }
+                                                                    //}
+                                                                    
                                                                 ?>  
-
-                                                                <?php 
-                                                                if(isset($_POST['modi'])){
-                                                                        include("conexion.php");
-                                                                        
-                                                                        $nombre = $_POST['nombre'];
-                                                                        $edad = $_POST['edad'];
-                                                                        $dir = $_POST['dir'];
-                                                                        //$foto = $_POST['foto'];
-                                                                        $tel = $_POST['telefono'];
-                                                                        $correo = $_POST['correo'];
-                                                                        $pass = $_POST['password2'];
-                                                                        $nick = $_POST['nick'];
-                                                                        $estado = $_POST['estado'];
-                                                                        $ubi = $_POST['ubicacion'];
-                                                                        $bio = $_POST['bio'];
-
-                                                                        if(isset($_POST['foto'])){
-                                                                            //$foto = $_POST['foto'];
-                                                                            $target_dir = "assets/images/users/";
-                                                                            $target_file = $target_dir . basename($_FILES["foto"]["name"]);
-                                                                            $uploadOk = 1;
-                                                                            $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
-                                                                            // Check if image file is a actual image or fake image
-                                                                            
-                                                                            $check = getimagesize($_FILES["foto"]["tmp_name"]);
-                                                                            if($check !== false) {
-                                                                                echo "File is an image - " . $check["mime"] . ".";
-                                                                                $uploadOk = 1;
-                                                                            } else {
-                                                                                echo "File is not an image.";
-                                                                                $uploadOk = 0;
-                                                                            }
-                                                                            
-                                                                            // Check if file already exists
-                                                                            if (file_exists($target_file)) {
-                                                                                echo "Sorry, file already exists.";
-                                                                                $uploadOk = 0;
-                                                                            }
-                                                                            // Check file size
-                                                                            if ($_FILES["foto"]["size"] > 500000000) {
-                                                                                echo "Sorry, your file is too large.";
-                                                                                $uploadOk = 0;
-                                                                            }
-                                                                            // Allow certain file formats
-                                                                            if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-                                                                            && $imageFileType != "gif" ) {
-                                                                                echo "Sorry, only JPG, JPEG, PNG & GIF files are allowed.";
-                                                                                $uploadOk = 0;
-                                                                            }
-                                                                            // Check if $uploadOk is set to 0 by an error
-                                                                            if ($uploadOk == 0) {
-                                                                                echo "Sorry, your file was not uploaded.";
-                                                                            // if everything is ok, try to upload file
-                                                                            } else {
-                                                                                if (move_uploaded_file($_FILES["foto"]["tmp_name"], $target_file)) {
-                                                                                    $dirfoto=$target_file;
-                                                                                    echo "The file ". basename( $_FILES["foto"]["name"]). " has been uploaded.";
-                                                                                } else {
-                                                                                    echo "Sorry, there was an error uploading your file.";
-                                                                                }
-                                                                            }
-                                                                            if(!empty($_SESSION['n'])){
-                                                                                $n = $_SESSION['n'];
-                                                                                $sesion = $conn->query("UPDATE usuarios SET edad = '$edad', direccion = '$dir', telefono = '$tel', correo = '$correo', pass = '$pass', foto = '$dirfoto', nickname = '$nick', estado='$estado', ubicacion='$ubi', biografia = '$bio' WHERE nom = '$nombre'"); 
-                                                                            }
-                                                                        }else{
-                                                                            if(!empty($_SESSION['n'])){
-                                                                                $n = $_SESSION['n'];
-                                                                                $sesion = $conn->query("UPDATE usuarios SET edad = '$edad', direccion = '$dir', telefono = '$tel', correo = '$correo', pass = '$pass', nickname = '$nick', estado='$estado', ubicacion='$ubi', biografia = '$bio' WHERE nom = '$nombre'");
-                                                                            }
-                                                                        }
-                                                                        if($sesion){
-                                                                             $_SESSION['modificado']=1;
-                                                                        }else{
-                                                                             $_SESSION['modificado']=0;
-                                                                        }
-
-                                                                        if(isset($_SESSION['modificado'])){
-                                                                            if($_SESSION['modificado']==1){
-                                                                                echo "<div class='alert alert-info alert-white alert-dismissible fade in' role='alert'>
-                                                                                <button type='button' class='close' data-dismiss='alert'
-                                                            aria-label='Close'>
-                                                                                <span aria-hidden='true'>&times;</span>
-                                                                                </button>
-                                                                                <i class='mdi mdi-check-all'></i>
-                                                                                <strong>¡Listo!</strong> Empleado modificado satisfactoriamente.
-                                                                                </div>";
-                                                                            }
-                                                                        }
-                                                                        $_SESSION['modificado']=0;
+                                                                <!--<?php
+                                                             //if(isset($_SESSION['insertado'])){
+                                                                    /*if($_SESSION['modificado']==1){
+                                                                        echo "<div class='alert alert-info alert-white alert-dismissible fade in' role='alert'>
+                                                                            <button type='button' class='close' data-dismiss='alert'
+                                                        aria-label='Close'>
+                                                                            <span aria-hidden='true'>&times;</span>
+                                                                            </button>
+                                                                            <i class='mdi mdi-check-all'></i>
+                                                                            <strong>¡Listo!</strong> Empleado modificado satisfactoriamente.
+                                                                            </div>";
                                                                     }
-                                                                ?> 
+                                                                    //$_SESSION['insertado']=0;
+                                                                //}*/
+                                                            ?> -->
+                                                                   
                                                             </form>
                                                         </div>
                                                     </div>

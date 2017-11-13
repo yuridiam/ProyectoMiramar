@@ -356,6 +356,21 @@
                                    
                                                         <div class="p-20 m-b-20">
                                                             <form class="form-validation" method="post" enctype="multipart/form-data">
+                                                            <?php
+                                                                    if(isset($_SESSION['eliminado'])){
+                                                                        if($_SESSION['eliminado']==1){
+                                                                            echo "<div class='alert alert-info alert-white alert-dismissible fade in' role='alert'>
+                                                                            <button type='button' class='close' data-dismiss='alert'
+                                                        aria-label='Close'>
+                                                                            <span aria-hidden='true'>&times;</span>
+                                                                            </button>
+                                                                            <i class='mdi mdi-check-all'></i>
+                                                                            <strong>¡Listo!</strong> Proveedor eliminado satisfactoriamente.
+                                                                            </div>";
+                                                                        }
+                                                                    }
+                                                                    $_SESSION['eliminado']=0;
+                                                                ?>
                                                                 <div class="form-group">
                                                                   <label for "usuarios">Seleccione al proveedor <span class="text-danger">*</span></label><br>
                                                                     <select id="getUsuarios" class="form-control select2" data-placeholder="Busque el producto que desea añadir" name="usuarios" style="width:400px" required>
@@ -386,29 +401,13 @@
                                                                     
                                                                 ?>  
                                                                 <?php
-                                                                        if($sesion){
-                                                                            $_SESSION['eliminado']=1;
-                                                                        }else{
-                                                                            $_SESSION['eliminado']=0;
-                                                                        }
-                                                                    
-                                                                ?>
-                                                                <?php
-                                                                    if(isset($_SESSION['eliminado'])){
-                                                                        if($_SESSION['eliminado']==1){
-                                                                            echo "<div class='alert alert-info alert-white alert-dismissible fade in' role='alert'>
-                                                                            <button type='button' class='close' data-dismiss='alert'
-                                                        aria-label='Close'>
-                                                                            <span aria-hidden='true'>&times;</span>
-                                                                            </button>
-                                                                            <i class='mdi mdi-check-all'></i>
-                                                                            <strong>¡Listo!</strong> Proveedor eliminado satisfactoriamente.
-                                                                            </div>";
-                                                                        }
-                                                                        //$_SESSION['eliminado']=0;
+                                                                    if($sesion){
+                                                                        $_SESSION['eliminado']=1;
+                                                                    }else{
+                                                                        $_SESSION['eliminado']=0;
                                                                     }
-                                                                ?>
-                                                                   
+                                                                    
+                                                                ?> 
                                                             </form>
                                                         </div>
                                                     </div>

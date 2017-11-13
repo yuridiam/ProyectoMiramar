@@ -258,14 +258,14 @@
                                     <li>
                                         <a href="javascript: void(0);" aria-expanded="true"><i class="mdi mdi-cube-send"></i> Productos <span class="fa arrow"></span></a>
                                             <ul class="nav-second-level nav" aria-expanded="true">
-                                                <li><a href="nuevoempleado.php"><i class="mdi mdi-account-plus"></i> Nuevo Producto</a></li>
-                                                <li><a href="modificarempleado.php"><i class="mdi mdi-account-settings-variant"></i> Modificar Producto</a></li>
-                                                <li><a href="eliminarempleado.php"><i class="mdi mdi-account-minus"></i> Eliminar Producto</a></li>
-                                                <li><a href="verempleados.php"><i class=" mdi mdi-account-search"></i> Visualizar Productos</a></li>
+                                                <li><a href="nuevoproducto.php"><i class="mdi mdi-account-plus"></i> Nuevo Producto</a></li>
+                                                <li><a href="modificarproducto.php"><i class="mdi mdi-account-settings-variant"></i> Modificar Producto</a></li>
+                                                <li><a href="eliminarproducto.php"><i class="mdi mdi-account-minus"></i> Eliminar Producto</a></li>
+                                                <li><a href="verproductos.php"><i class=" mdi mdi-account-search"></i> Visualizar Productos</a></li>
                                             </ul>
                                     </li>
 
-                                        <li><a href="charts.html"><!--<span class="mdi mdi-content-paste"></span>--><i class="mdi mdi-briefcase-download"></i> Surtir </a></li>
+                                        <li><a href="surtir.php"><!--<span class="mdi mdi-content-paste"></span>--><i class="mdi mdi-briefcase-download"></i> Surtir </a></li>
 
                                         <li>
                                           <a href="cortedecaja.php" aria-expanded="true"><i class="mdi mdi-image-filter-none"></i> Corte de Caja <!--<span class="fa arrow">--></span></a>
@@ -281,10 +281,10 @@
                                       <li>
                                         <a href="javascript: void(0);" aria-expanded="true"><i class="mdi mdi-account-card-details"></i> Proveedores <span class="fa arrow"></span></a>
                                             <ul class="nav-second-level nav" aria-expanded="true">
-                                                <li><a href="nuevoempleado.php"><i class="mdi mdi-account-plus"></i> Nuevo Proveedor</a></li>
-                                                <li><a href="modificarempleado.php"><i class="mdi mdi-account-settings-variant"></i> Modificar Proveedor</a></li>
-                                                <li><a href="eliminarempleado.php"><i class="mdi mdi-account-minus"></i> Eliminar Proveedor</a></li>
-                                                <li><a href="verempleados.php"><i class=" mdi mdi-account-search"></i> Visualizar Proveedores</a></li>
+                                                <li><a href="nuevoproveedor.php"><i class="mdi mdi-account-plus"></i> Nuevo Proveedor</a></li>
+                                                <li><a href="modificarproveedor.php"><i class="mdi mdi-account-settings-variant"></i> Modificar Proveedor</a></li>
+                                                <li><a href="eliminarproveedor.php"><i class="mdi mdi-account-minus"></i> Eliminar Proveedor</a></li>
+                                                <li><a href="verproveedores.php"><i class=" mdi mdi-account-search"></i> Visualizar Proveedores</a></li>
                                             </ul>
                                     </li>
 

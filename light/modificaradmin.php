@@ -348,7 +348,7 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="">
-                                    <h4 class="header-title">Modificar Empleado</h4>
+                                    <h4 class="header-title">Modificar Administrador</h4>
 
                                     <p class="text-muted font-13 m-b-10">
                                         
@@ -428,13 +428,13 @@
                                                         <div class="p-20 m-b-20">
                                                             <form class="form-validation" method="post" enctype="multipart/form-data">
                                                                 <div class="form-group">
-                                                                  <label for "usuarios">Seleccione al usuario <span class="text-danger">*</span></label><br>
+                                                                  <label for "usuarios">Seleccione al administrador <span class="text-danger">*</span></label><br>
                                                                     <select id="getUsuarios" class="form-control select2" data-placeholder="Busque el producto que desea añadir" name="usuarios" style="width:400px" required>
                                                                         <?php
 
                                                                             include("conexion.php");
 
-                                                                            $sesion = $conn->query("SELECT * FROM usuarios WHERE tipo_usuario ='Empleado' AND eliminado = 0");
+                                                                            $sesion = $conn->query("SELECT * FROM usuarios WHERE tipo_usuario ='Administrador' AND eliminado = 0");
 
                                                                             while($resultado = mysqli_fetch_array($sesion)){
                                                                         ?>
@@ -602,24 +602,25 @@
                                                                             }
                                                                         }
                                                                         if($sesion){
-                                                                             $_SESSION['modificado']=1;
+                                                                             $_SESSION['modificadoA']=1;
+
                                                                         }else{
-                                                                             $_SESSION['modificado']=0;
+                                                                             $_SESSION['modificadoA']=0;
                                                                         }
 
-                                                                        if(isset($_SESSION['modificado'])){
-                                                                            if($_SESSION['modificado']==1){
+                                                                        if(isset($_SESSION['modificadoA'])){
+                                                                            if($_SESSION['modificadoA']==1){
                                                                                 echo "<div class='alert alert-info alert-white alert-dismissible fade in' role='alert'>
                                                                                 <button type='button' class='close' data-dismiss='alert'
                                                             aria-label='Close'>
                                                                                 <span aria-hidden='true'>&times;</span>
                                                                                 </button>
                                                                                 <i class='mdi mdi-check-all'></i>
-                                                                                <strong>¡Listo!</strong> Empleado modificado satisfactoriamente.
+                                                                                <strong>¡Listo!</strong> Administrador modificado satisfactoriamente.
                                                                                 </div>";
                                                                             }
                                                                         }
-                                                                        $_SESSION['modificado']=0;
+                                                                        $_SESSION['modificadoA']=0;
                                                                     }
                                                                 ?> 
                                                             </form>

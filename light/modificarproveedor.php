@@ -509,24 +509,22 @@
                                                                         }else{
                                                                             $_SESSION['modificado']=0;
                                                                         }
-                                                                    }
-                                                                ?>
-                                                                <?php
-                                                                    if(isset($_SESSION['modificado'])){
-                                                                        if($_SESSION['modificado']==1){
-                                                                            echo "<div class='alert alert-info alert-white alert-dismissible fade in' role='alert'>
-                                                                            <button type='button' class='close' data-dismiss='alert'
-                                                        aria-label='Close'>
-                                                                            <span aria-hidden='true'>&times;</span>
-                                                                            </button>
-                                                                            <i class='mdi mdi-check-all'></i>
-                                                                            <strong>¡Listo!</strong> Proveedor modificado satisfactoriamente.
-                                                                            </div>";
+
+                                                                        if(isset($_SESSION['modificado'])){
+                                                                            if($_SESSION['modificado']==1){
+                                                                                echo "<div class='alert alert-info alert-white alert-dismissible fade in' role='alert'>
+                                                                                <button type='button' class='close' data-dismiss='alert'
+                                                            aria-label='Close'>
+                                                                                <span aria-hidden='true'>&times;</span>
+                                                                                </button>
+                                                                                <i class='mdi mdi-check-all'></i>
+                                                                                <strong>¡Listo!</strong> Proveedor modificado satisfactoriamente.
+                                                                                </div>";
+                                                                            }
+                                                                            $_SESSION['modificado']=0;
                                                                         }
-                                                                        $_SESSION['modificado']=0;
                                                                     }
-                                                                ?>
-                                                                   
+                                                                ?> 
                                                             </form>
                                                         </div>
                                                     </div>

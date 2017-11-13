@@ -7,6 +7,38 @@
 
   //isset($_SESSION['insertado']);
 
+  if(isset($_POST["entrar"])){
+
+        $nombre = $_POST['nombre'];
+        $descripcion = $_POST['descripcion'];
+        $stock = $_POST['stock'];
+        $precio = $_POST['preciouni'];
+        $proveedor = $_POST['proveedor'];
+        $eliminado = '0';
+        //$_SESSION["insertadoP"]=0;
+
+
+        include("conexion.php");
+
+        $sesion2 = $conn->query("SELECT * FROM productos WHERE nom = '$nombre'");
+
+            if(mysqli_num_rows($sesion2)>0){
+                $_SESSION['insertadoP']=2;
+                header("Location: nuevoproducto.php");
+            }else{
+
+                $sesion = $conn->query("INSERT INTO productos (nombre, eliminado, descripcion, cantidad_stock, precio_unitario, id_proveedor) VALUES ('$nombre', '$eliminado', '$descripcion', '$stock', '$precio', '$proveedor')");
+
+                $_SESSION['insertadoP']=1;
+                header("Location: nuevoproducto.php");
+            }
+
+        if(empty($nombre)){
+                $_SESSION['insertadoP']=0;
+                header("Location: nuevoproducto.php");
+        }
+  }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -348,125 +380,150 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <div class="">
-                                    <h4 class="header-title">Proveedores</h4>
+                                    <h4 class="header-title">Nuevo Producto</h4>
 
                                     <p class="text-muted font-13 m-b-10">
                                         
                                     </p>
-                                    <!--<div class="p-20 m-b-20">
+                                    <div class="p-20 m-b-20">
 					                             <form class="form-validation" method="post" enctype="multipart/form-data">
 					                                         <?php
-					                                             /*if(isset($_SESSION['insertado'])){
-					                                        		     if($_SESSION['insertado']==1){
+					                                             if(isset($_SESSION['insertadoP'])){
+					                                        		     if($_SESSION['insertadoP']==1){
 					                                            		   echo "<div class='alert alert-info alert-white alert-dismissible fade in' role='alert'>
                                                 						  	<button type='button' class='close' data-dismiss='alert'
                                                         aria-label='Close'>
                                                     						<span aria-hidden='true'>&times;</span>
                                                 							 </button>
                                                 							 <i class='mdi mdi-check-all'></i>
-                                                							 <strong>¡Listo!</strong> Empleado registrado satisfactoriamente.
+                                                							 <strong>¡Listo!</strong> Producto registrado satisfactoriamente.
                                             								  </div>";
-					                                            	    }else if($_SESSION['insertado']==2){
+					                                            	    }else if($_SESSION['insertadoP']==2){
 					                                            		     echo "<div class='alert alert-danger alert-white alert-dismissible fade in' role='alert'>
                                                 							<button type='button' class='close' data-dismiss='alert'
                                                         aria-label='Close'>
                                                     						<span aria-hidden='true'>&times;</span>
                                                 							</button>
                                                 							<i class='mdi mdi-block-helper'></i>
-                                                							<strong>¡Error!</strong> El empleado que está tratando de registrar ya existe.
+                                                							<strong>¡Error!</strong> El producto que está tratando de registrar ya existe.
                                             								  </div>";
 					                                            	    }
-					                                            	$_SESSION['insertado']=0;
+					                                            	//$_SESSION['insertadoP']=0;
 					                                            }
-					                            			      */?> 
+					                            			      ?> 
 					                                            <div class="form-group">
 					                                                <label for="userName">Nombre<span class="text-danger">*</span></label>
 					                                                <input type="text" name="nombre" parsley-trigger="change" required
 					                                                       placeholder="Ingrese el nombre completo" class="form-control" id="nombre" maxlength="99">
 					                                            </div>
-					                                             <div class="form-group">
-                                            						<label class="control-label">Seleccione una foto<span class="text-danger">*</span></label>
-                                            						<input type="file" name="foto" required class="filestyle" data-buttonname="btn-default">
-                                        						</div>
-                                        	
-					                                             <div class="form-group">
-					                                                <label for="userName">Edad<span class="text-danger">*</span></label>
-					                                                <input type="text" name="edad" parsley-trigger="change" required
-					                                                       placeholder="Ingrese la edad" class="form-control" id="edad" maxlength="2">
+					                                             
+					                                            <div class="form-group">
+					                                                <label for="userName">Descripción<span class="text-danger">*</span></label>
+					                                                <input type="text" name="descripcion" parsley-trigger="change" required
+					                                                       placeholder="Ingrese la dirección" class="form-control" id="descripcion" maxlength="99">
 					                                            </div>
 					                                            <div class="form-group">
-					                                                <label for="userName">Dirección<span class="text-danger">*</span></label>
-					                                                <input type="text" name="dir" parsley-trigger="change" required
-					                                                       placeholder="Ingrese la dirección" class="form-control" id="dir" maxlength="99">
-					                                            </div>
-					                                            <div class="form-group">
-					                                                <label for="userName">Teléfono<span class="text-danger">*</span></label>
-					                                                <input type="text" name="telefono" parsley-trigger="change" required
+					                                                <label for="userName">Cantidad de unidades<span class="text-danger">*</span></label>
+					                                                <input type="text" name="stock" parsley-trigger="change" required
 					                                                       placeholder="Ingrese el número teléfonico" class="form-control" id="telefono" maxlength="15">
 					                                            </div>
 					                                            <div class="form-group">
-					                                                <label for="correo">Correo<span class="text-danger">*</span></label>
-					                                                <input type="email" name="correo" parsley-trigger="change" required
-					                                                       placeholder="Ingrese el correo electrónico" class="form-control" id="correo" maxlength="30">
+					                                                <label for="userName">Precio Unitario<span class="text-danger">*</span></label>
+					                                                <input type="text" name="preciouni" parsley-trigger="change" required
+					                                                       placeholder="Ingrese el número teléfonico" class="form-control" id="telefono" maxlength="5">
 					                                            </div>
 					                                            <div class="form-group">
-					                                                <label for="password">Contraseña<span class="text-danger">*</span></label>
-					                                                <input id="password" name="password" type="text" required placeholder="Ingrese la contraseña" class="form-control" maxlength="10">
+					                                                <label for="userName">Número de proveedor<span class="text-danger">*</span></label>
+					                                                <input type="text" name="proveedor" parsley-trigger="change" required
+					                                                       placeholder="Ingrese el número teléfonico" class="form-control" id="telefono" maxlength="5">
 					                                            </div>
-					                                            <div class="form-group">
-					                                                <label for="password2">Confirme la contraseña <span class="text-danger">*</span></label>
-					                                                <input data-parsley-equalto="#password" type="text" required
-					                                                       placeholder="Ingrese nuevamente la contraseña" name="password2" class="form-control" id="password2" maxlength="10">
-					                                            </div>
+
 					                                            <div class="form-group text-right m-b-0">
 					                                            	<input class="btn btn-info waves-effect waves-light" name="entrar" type="submit" value="Registrar"/>
 					                                            </div>
 					                                        </form>
 					                                    </div>
                                           
-                                                    <!--<div class="tab-pane" id="modificarempleado">-->
-
+                                                    <!--<div class="tab-pane" id="modificarempleado">
                                                         <div class="p-20 m-b-20">
                                                             <form class="form-validation" method="post" enctype="multipart/form-data">
                                                                 <div class="form-group">
-                                                                <table id="datatable-buttons" class="table table-striped table-bordered">
-								                                        <thead>
-								                                        <tr>
-								                                            <th>Número de proveedor</th>
-								                                            <th>Nombre</th>
-								                                            <th>Dirección</th>
-								                                            <th>Telefono</th>
-								                                        </tr>
-								                                        </thead>
-								                                        <tbody>
+                                                                  <label for "usuarios">Seleccione al usuario <span class="text-danger">*</span></label><br>
+                                                                    <select id="getUsuarios" class="form-control select2" data-placeholder="Busque el producto que desea añadir" name="usuarios" style="width:400px" required>
+                                                                        <?php
 
+                                                                            /*include("conexion.php");
+
+                                                                            $sesion = $conn->query("SELECT * FROM usuarios WHERE tipo_usuario ='Empleado' AND eliminado = 0");
+
+                                                                            while($resultado = mysqli_fetch_array($sesion)){
+                                                                        ?>
+                                                                                <option><?php echo "$resultado[nom]"; ?></option>
+                                                                                <?php
+                                                                            }
+
+                                                                        ?>
+                                                                    </select>
+                                                                    <input class="btn btn-info waves-effect waves-light" name="buscar" type="submit" value="Buscar"/>
+                                                                </div>
                                                                 <?php
 
-                                                                	
-                                                                		include("conexion.php");
-                                                                      	
-                                                                      	$sesion = $conn->query("SELECT * FROM proveedores WHERE eliminado = 0");
-                                                                      	while($resultado = mysqli_fetch_array($sesion)){
-                                                                      	?>
-                                                                      		<tr>
-								                                            <td><?php echo "$resultado[id_proveedor]";?></td>
-								                                            <td><?php echo "$resultado[nombre]";?></td>
-								                                            <td><?php echo "$resultado[direccion]";?></td>
-								                                            <td><?php echo "$resultado[telefono]";?></td>
-								                                        	</tr>
-                                                                      	<?php
-                                                                      	}
-                                                                      	?>
+                                                                    if(isset($_POST["buscar"])){
+                                                                      $selected = $_POST["usuarios"];
+                                                                      $sesion = $conn->query("SELECT * FROM usuarios WHERE nom ='$selected'");
+                                                                      $resultado = mysqli_fetch_array($sesion);
 
-								                                        </tbody>
-								                                    </table>
+//                                                                        if($resultado = mysqli_fetch_array($sesion)){
+                                                                            echo "
+                                                                            <div class='form-group'>
+                                                                                <label for='userName'>Nombre<span class='text-danger'>*</span></label>
+                                                                                <input type='text' name='nombre' parsley-trigger='change' required
+                                                                               placeholder='Ingrese el nombre completo' class='form-control' id='nombre' maxlength='99' value ='$resultado[nom]'>
+                                                                            </div>
+                                                                            <div class='form-group'>
+                                                                                <label class='control-label'>Foto actual</label>
+                                                                                <br><img src= '$resultado[foto]' alt='' class='thumb-md img-circle' style='width:100px'><br><br>
 
-								                                </div>
-								                            </div>
-								                        </div>
-								                    </div>
-
-                                                                
+                                                                                <label class='control-label'>Seleccione una foto<span class='text-danger'>*</span></label>
+                                                                                <input type='file' name='foto' required class='filestyle' data-buttonname='btn-default'>
+                                                                            </div>
+                                                
+                                                                            <div class='form-group'>
+                                                                                <label for='userName'>Edad<span class='text-danger'>*</span></label>
+                                                                                <input type='text' name='edad' parsley-trigger='change' required
+                                                                               placeholder='Ingrese la edad' class='form-control' id='edad' maxlength='2' value='$resultado[edad]'>
+                                                                            </div>
+                                                                            <div class='form-group'>
+                                                                                <label for='userName'>Dirección<span class='text-danger'>*</span></label>
+                                                                                <input type='text' name='dir' parsley-trigger='change' required
+                                                                               placeholder='Ingrese la dirección' class='form-control' id='dir' maxlength='99' value='$resultado[direccion]'>
+                                                                            </div>
+                                                                            <div class='form-group'>
+                                                                                <label for='userName'>Teléfono<span class='text-danger'>*</span></label>
+                                                                                <input type='text' name='telefono' parsley-trigger='change' required
+                                                                               placeholder='Ingrese el número teléfonico' class='form-control' id='telefono' maxlength='15' value='$resultado[telefono]'>
+                                                                            </div>
+                                                                            <div class='form-group'>
+                                                                            <label for='correo'>Correo<span class='text-danger'>*</span></label>
+                                                                            <input type='email' name='correo' parsley-trigger='change' required
+                                                                               placeholder='Ingrese el correo electrónico' class='form-control' id='correo' maxlength='30' value='$resultado[correo]'>
+                                                                            </div>
+                                                                            <div class='form-group'>
+                                                                                <label for='password'>Contraseña<span class='text-danger'>*</span></label>
+                                                                                <input id='password' name='password' type='text' required placeholder='Ingrese la contraseña' class='form-control' maxlength='10' value='$resultado[pass]'>
+                                                                            </div>
+                                                                            <div class='form-group'>
+                                                                                <label for='password2'>Confirme la contraseña <span class='text-danger'>*</span></label>
+                                                                                <input data-parsley-equalto='#password' type='text' required
+                                                                               placeholder='Ingrese nuevamente la contraseña' name='password2' class='form-control' id='password2' maxlength='10' value='$resultado[pass]'>
+                                                                            </div>
+                                                                            <div class='form-group text-right m-b-0'>
+                                                                                <input class='btn btn-info waves-effect waves-light' name='modi' type='submit' value='Modificar'/>
+                                                                            </div>";
+                                                                        }
+                                                                    //}
+                                                                    
+                                                                ?>  
                                                                 <!--<?php
                                                              //if(isset($_SESSION['insertado'])){
                                                                     /*if($_SESSION['modificado']==1){

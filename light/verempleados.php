@@ -448,7 +448,7 @@
                                                                 	
                                                                 		include("conexion.php");
                                                                       	
-                                                                      	$sesion = $conn->query("SELECT * FROM usuarios WHERE tipo_usuario = 'Empleado'");
+                                                                      	$sesion = $conn->query("SELECT * FROM usuarios WHERE tipo_usuario = 'Empleado' AND eliminado = 0");
                                                                       	while($resultado = mysqli_fetch_array($sesion)){
                                                                       	?>
                                                                       		<tr>
